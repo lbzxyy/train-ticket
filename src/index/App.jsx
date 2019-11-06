@@ -9,6 +9,9 @@ import HighSpeed from './HighSpeed.jsx';
 import Journey from './Journey.jsx';
 import Submit from './Submit.jsx';
 
+import CitySelector from '../common/CitySelector.jsx';
+
+
 import {
   exchangeFromTo,
   showCitySelector,
@@ -25,7 +28,10 @@ function App(props) {
   const {
     from,
     to,
-    dispatch
+    dispatch,
+    isCitySelectorVisible,
+    isLoadingCityData,
+    cityData,
   } = props
   const onBack = useCallback(() => {
     window.history.back()
@@ -35,7 +41,14 @@ function App(props) {
       exchangeFromTo,
       showCitySelector
     },dispatch)
+  },[dispatch])
+  const citySelectorCbs = useMemo(()=>{
+    return bindActionCreators({
+      onBack: hideCitySelector,
+    },dispatch)
   },[])
+
+    
   return (
     <div className="App">
       <div className="header-wrapper">
@@ -51,6 +64,12 @@ function App(props) {
           <HighSpeed  />
           <Submit />
       </form>
+      <CitySelector
+         show = {isCitySelectorVisible}
+         isLoading={isLoadingCityData}
+         cityData={cityData}
+         {...citySelectorCbs}
+      />
     </div>
   );
 }
