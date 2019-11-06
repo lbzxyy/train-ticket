@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import { connect } from 'react-redux';
 import './App.css';
 
@@ -9,10 +9,13 @@ import Journey from './Journey.jsx';
 import Submit from './Submit.jsx';
 
 function App() {
+  const onBack = useCallback(() => {
+    window.history.back()
+  },[])
   return (
     <div className="App">
       <div className="header-wrapper">
-              <Header title="火车票" />
+              <Header title="火车票" onClick={onBack}/>
       </div>
       <form action="./query.html" className="form">
           <Journey />
