@@ -45,8 +45,9 @@ function App(props) {
   const citySelectorCbs = useMemo(()=>{
     return bindActionCreators({
       onBack: hideCitySelector,
+      fetchCityData
     },dispatch)
-  },[])
+  },[dispatch])
 
     
   return (

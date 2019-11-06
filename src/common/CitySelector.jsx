@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import './CitySelector.css'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
@@ -15,7 +15,15 @@ export default function CitySelector(props) {
 
 const [searchKey, setSearchKey] = useState('')
 const key =  useMemo(()=>{
-  searchKey.trim()},[searchKey])
+  return searchKey.trim()},[searchKey])
+
+  useEffect(()=>{
+    if(!show ||isLoading || cityData) {
+      return;
+    }
+    fetchCityData()
+  },[show,isLoading,cityData,fetchCityData])
+
   return (
     <div className={classnames(
       'city-selector',
@@ -62,5 +70,5 @@ CitySelector.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   onBack: PropTypes.func.isRequired,
   fetchCityData: PropTypes.func.isRequired,
-  onSelect: PropTypes.func.isRequired,
+  // onSelect: PropTypes.func.isRequired,
 };
