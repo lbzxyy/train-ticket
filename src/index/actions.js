@@ -50,6 +50,7 @@ export function toggleHighSpeed() {
 }
 // 显示城市弹窗
 export function showCitySelector(currentSelectingLeftCity) {
+  console.log(currentSelectingLeftCity,'currentSelectingLeftCity8888')
   return (dispatch) => {
     dispatch({
       type: ACTION_SET_IS_CITY_SELECTOR_VISIBLE,
@@ -71,12 +72,14 @@ export function hideCitySelector() {
 // 回显选择哪个城市到那边
 export function setSelectedCity(city) {
   return (dispatch, getState) => {
-    const { currentSelectingLeftCity } = getState
+    const { currentSelectingLeftCity } = getState()
+    console.log(currentSelectingLeftCity,'currentSelectingLeftCity')
     if(currentSelectingLeftCity) {
       dispatch(setFrom(city))
     }else{
       dispatch(setTo(city))
     }
+    dispatch(hideCitySelector())
   }
 }
 // 显示日前组件
